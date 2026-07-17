@@ -58,35 +58,71 @@ int main() {
     return 1; // abort
   }
 
-  if ((product_type == "banana") && !(unit_type == "single" || unit_type == "bunch")) {
-    cout << "Invalid unit type entered! For bananas, the unit type must be 'single' or 'bunch'." << endl;
-    return 1; // abort
+   //To counter the user putting in any input other than apple, banana, or watermelon. If they put in any other input like orange, the program will abort. 
+  if ((product_type != "banana") && (product_type != "apple") && (product_type != "watermelon")) {
+      cout << "Invalid product type entered! The product type must be 'apple', 'banana', or 'watermelon'. Aborting." << endl;
+      return 1;
   }
-  //...
+  
+  //You dont put bananas in bags at the store
+  if ((product_type == "banana") && !(unit_type == "bunch" || unit_type == "single")) {
+    cout << "Invalid unit type entered! For bananas, the unit type must be 'single' or 'bunch'. Aborting." << endl;
+    return 1; 
+  }
+  
+  //You can only buy buy bags of apples at the store, you dont get bunches of apples
+  if ((product_type == "apple") && !(unit_type == "bag" || unit_type == "single")) {
+    cout << "Invalid unit type entered! For apples, the unit type must be 'single' or 'bag'. Aborting." << endl;
+    return 1;
+  }
+  
+  //You can only buy single watermelons at the store, you dont stuff watermelons in a bag
+  if ((product_type == "watermelon") && !(unit_type == "single")) {
+    cout << "Invalid unit type entered! For watermelons, the unit type must be 'single'. Aborting." << endl;
+    return 1;
+  }
 
   // TODO: COMPUTE THE COST OF THIS PURCHASE
+  //Each single banana is 40 cents, so each single banana the user inputs times 40 cents for the total. Divided by 100 because 40/100 = 0.4, an accurate representation of cents.
   if ((product_type == "banana") && (unit_type == "single")) {
-    total_cost = quantity * (price_banana / 100.); // total cost in dollars
-    //...
+    total_cost = quantity * (price_banana / 100.); 
   }
-  if (product_type == "banana") && (unit_type == "bunch")) {
-    total_cost = quantity *   //...
-    //...
+  
+  if ((product_type == "apple") && (unit_type == "single")) {
+    total_cost = quantity * (price_apple / 100.);
   }
-  //...
-  //...
-
+  
+  if ((product_type == "watermelon") && (unit_type == "single")) {
+    total_cost = quantity * (price_watermelon / 100.);
+  }
+  
+  //2 dollars per a bunch of bananas, so 2 times the amount of bunches the user inputs
+  if ((product_type == "banana") && (unit_type == "bunch")) {
+    total_cost = quantity * price_bunch_bananas;  
+  }
+  
+  //3 dollars per bag of apples, so 3 times the amount of bags the user inputs
+  if ((product_type == "apple") && (unit_type == "bag")) {
+    total_cost = quantity * price_bag_apples;
+  }
+  
 
   // TODO: APPLY THE OPTIONAL DISCOUNT TO FINAL TOTAL COST
-  //...
+  //so if they say yes to the sale, the number of fruit they input will increase by 1 before calculating the total
+  //so if they say yes to the sale, the total will already be calculated and the deal will take a percentage off of the already calculated total
+  if (accept_sale == "y") {
+      quantity += 1;
+      total_cost = total_cost - (0.10 * total_cost);
+  }
 
       
   // DO NOT EDIT BELOW THIS LINE!
 
   // TELL USER THEIR FINAL TOTAL COST, AND COST PER FRUIT ITEM
+  //once the total cost has the sale applied to it, you can then take that total price and divide it by the number of fruits to get the accurate price per individual fruit
   cout << "Your total cost will be : $" << total_cost << endl;
-  cout << "Your cost per " << product_type << " will be : $" << item_cost
-       << endl;
+  item_cost = total_cost / quantity; 
+  cout << "Your cost per " << product_type << " will be : $" << item_cost << endl;
 
   return 0;
 }
