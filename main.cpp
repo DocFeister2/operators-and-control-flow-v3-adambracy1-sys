@@ -54,7 +54,7 @@ int main() {
     return 1; // abort
   }
 
-   //To counter the user putting in any input other than apple, banana, or watermelon. If they put in any other input like orange, the program will abort. 
+  //To counter the user putting in any input other than apple, banana, or watermelon. If they put in any other input like orange, the program will abort. 
   if ((product_type != "banana") && (product_type != "apple") && (product_type != "watermelon")) {
       cout << "Invalid product type entered! The product type must be 'apple', 'banana', or 'watermelon'. Aborting." << endl;
       return 1;
@@ -78,7 +78,6 @@ int main() {
     return 1;
   }
 
-  //To update quantity of fruits by 1 just in case the sale is accepted before the variable quantity is used in calculations
   //Each single banana is 40 cents, so each single banana the user inputs times 40 cents for the total. Divided by 100 because 40/100 = 0.4, an accurate representation of cents.
   if ((product_type == "banana") && (unit_type == "single")) {
     total_cost = quantity * (price_banana / 100.); 
@@ -102,13 +101,25 @@ int main() {
     total_cost = quantity * price_bag_apples;
   }
   
+  /*when you have bunches or bags, the quantity variable accepts 1 bag or 1 bunch, not the individual number of fruits within those bags or bunches, 
+   *so if the user inputs bag or bunch, the program should define the number of individual fruit inside those bags or bunches to find the cost per banana or apple.
+   */
+  int individual_fruit;
+  if (unit_type == "bunch") {
+    individual_fruit = 7;
+    quantity = individual_fruit;
+  }
+  else if (unit_type == "bag") {
+    individual_fruit = 8;
+    quantity = individual_fruit;
+  }
 
   //To update the total cost with the discount applied so that when the user inputs yes to the discount, the total cost changes 
   if (accept_sale == "y") {
-      total_cost = total_cost - (0.10 * total_cost);
+    total_cost = total_cost - (0.10 * total_cost);
   }
 
-//once the total cost has the sale applied to it, you can then take that total price and divide it by the number of fruits to get the accurate price per individual fruit
+  //once the total cost has the sale applied to it, you can then take that total price and divide it by the number of fruits to get the accurate price per individual fruit
   item_cost = total_cost / quantity; 
 
 
