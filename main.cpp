@@ -44,14 +44,10 @@ int main() {
   cout << "Congratulations! You've been selected for a special promotion! Would you like to add one more unit to your cart and receive a 10% discount overall (y/n)?";
   cin >> accept_sale;
 
-  // DO NOT EDIT ABOVE THIS LINE!
-
-  // TODO: Finish this program to compute total price, and price per item!
-  // TODO: Edit freely and significantly expand all code below
-  // The code below is yours to delete, rewrite how you please!
-
-  // TODO: INPUT VALIDATION
-  // Print error statements if any of the inputs or combinations of inputs are invalid!
+  //To update quantity of fruits by 1 just in case the sale is accepted before the variable quantity is used in calculations
+  if (accept_sale == "y") {
+    quantity += 1;
+  } 
 
   if (quantity <= 0) {
     cout << "Invalid quantity entered! Quantity must be greater than zero. Aborting." << endl; // (this is an example of how I'd like you to print error messages for this lab)
@@ -70,7 +66,7 @@ int main() {
     return 1; 
   }
   
-  //You can only buy buy bags of apples at the store, you dont get bunches of apples
+  //You can only buy bags of apples at the store, you dont get bunches of apples
   if ((product_type == "apple") && !(unit_type == "bag" || unit_type == "single")) {
     cout << "Invalid unit type entered! For apples, the unit type must be 'single' or 'bag'. Aborting." << endl;
     return 1;
@@ -82,7 +78,7 @@ int main() {
     return 1;
   }
 
-  // TODO: COMPUTE THE COST OF THIS PURCHASE
+  //To update quantity of fruits by 1 just in case the sale is accepted before the variable quantity is used in calculations
   //Each single banana is 40 cents, so each single banana the user inputs times 40 cents for the total. Divided by 100 because 40/100 = 0.4, an accurate representation of cents.
   if ((product_type == "banana") && (unit_type == "single")) {
     total_cost = quantity * (price_banana / 100.); 
@@ -107,21 +103,17 @@ int main() {
   }
   
 
-  // TODO: APPLY THE OPTIONAL DISCOUNT TO FINAL TOTAL COST
-  //so if they say yes to the sale, the number of fruit they input will increase by 1 before calculating the total
-  //so if they say yes to the sale, the total will already be calculated and the deal will take a percentage off of the already calculated total
+  //To update the total cost with the discount applied so that when the user inputs yes to the discount, the total cost changes 
   if (accept_sale == "y") {
-      quantity += 1;
       total_cost = total_cost - (0.10 * total_cost);
   }
 
-      
-  // DO NOT EDIT BELOW THIS LINE!
+//once the total cost has the sale applied to it, you can then take that total price and divide it by the number of fruits to get the accurate price per individual fruit
+  item_cost = total_cost / quantity; 
+
 
   // TELL USER THEIR FINAL TOTAL COST, AND COST PER FRUIT ITEM
-  //once the total cost has the sale applied to it, you can then take that total price and divide it by the number of fruits to get the accurate price per individual fruit
   cout << "Your total cost will be : $" << total_cost << endl;
-  item_cost = total_cost / quantity; 
   cout << "Your cost per " << product_type << " will be : $" << item_cost << endl;
 
   return 0;
